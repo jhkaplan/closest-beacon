@@ -31,6 +31,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         37987: "Josh's Office"
     ]
     
+    let user = "Josh"
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +43,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         func post(){
             
             let user = "Josh"
-            let currentBeacon = "Beacon"
+            let currentBeacon = "\(label)"
             let eventTime = NSDate().timeIntervalSince1970
+            
             
             
             let post :  [String : AnyObject] = ["user" : user as AnyObject,
@@ -53,7 +58,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             databaseREF.child("Locations").childByAutoId().setValue(post)
             
         }
-        
         post()
         
         locationManager.delegate = self
@@ -79,7 +83,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             let closestBeacon = knownBeacons[0] as CLBeacon
             self.view.backgroundColor = self.colors[closestBeacon.minor.intValue]
             self.locationName.text = self.label[closestBeacon.minor.intValue]
+            
+            //not sure why I added this
+            // guard let currentBeacon = self.label[closestBeacon.minor.intValue] else { return }
         }
+        
         
     }
     
