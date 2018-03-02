@@ -20,11 +20,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     let colors = [
         38865: UIColor(red: 46/255, green: 49/255, blue: 146/255, alpha: 1),
         14477: UIColor(red: 159/255, green: 205/255, blue: 174/255, alpha: 1),
-    ]
+        9463: UIColor(red: 110/255, green: 206/255, blue: 245/255, alpha: 1),
+        37987: UIColor(red: 110/255, green: 206/255, blue: 245/255, alpha: 1),
+        ]
+    
     let label = [
-        38865: "Blueberry Office",
-        14477: "Mint Benoit"
+        38865: "Taylor's Office",
+        14477: "Benoit's Office",
+        9463: "Josh's Office",
+        37987: "Josh's Office"
     ]
+    
+    let user = "Josh"
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +43,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         func post(){
             
             let user = "Josh"
-            let currentBeacon = "Beacon"
+            let currentBeacon = "\(label)"
             let eventTime = NSDate().timeIntervalSince1970
+            
             
             
             let post :  [String : AnyObject] = ["user" : user as AnyObject,
@@ -48,7 +58,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             databaseREF.child("Locations").childByAutoId().setValue(post)
             
         }
-        
         post()
         
         locationManager.delegate = self
@@ -61,7 +70,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,13 +83,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             let closestBeacon = knownBeacons[0] as CLBeacon
             self.view.backgroundColor = self.colors[closestBeacon.minor.intValue]
             self.locationName.text = self.label[closestBeacon.minor.intValue]
+            
+            //not sure why I added this
+            // guard let currentBeacon = self.label[closestBeacon.minor.intValue] else { return }
         }
+        
         
     }
     
     
     
-
-
+    
+    
 }
-
